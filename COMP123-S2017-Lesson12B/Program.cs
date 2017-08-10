@@ -7,7 +7,7 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 3, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.1- Created the Project
+ * Version: 0.2- Started SplashForm First
  */ 
 namespace COMP123_S2017_Lesson12B
 {
@@ -21,7 +21,7 @@ namespace COMP123_S2017_Lesson12B
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CalculatorForm());
+            Application.Run(new SplashForm());
         }
     }
 }
