@@ -53,7 +53,7 @@ namespace COMP123_S2017_Lesson12B
         /// <param name="e"></param>
         private void OperatorButton_Click(object sender, EventArgs e)
         {
-
+            Button operatorButton = sender as Button;// downcasting
         }
     }
 }
