@@ -14,7 +14,7 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 3, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.- Added the Private _clear method
+ * Version: 0.7- Refactored the CalculatorButton_Click event handler
  */ 
 namespace COMP123_S2017_Lesson12B
 {
@@ -22,21 +22,45 @@ namespace COMP123_S2017_Lesson12B
     {
         // PRIVATE INSTANCE VARIABLES
         private bool _isDecimalClicked;
+        private string _currentOperator;
+        private List<double> _operandList;
         // PUBLIC PROPERTIES
+        public List<double> OperandList
+        {
+            get
+            {
+                return this._operandList;
+            }
+            set
+            {
+                this._operandList = value;
+            }
+        }
+        public string CurrentOperator
+        {
+            get
+            {
+                return this._currentOperator;
+            }
+            set
+            {
+                this._currentOperator = value;
+            }
+        }
         public bool IsDecimalClicked
         {
             get
             {
-                return this.IsDecimalClicked;
+                return this._isDecimalClicked;
             }
             set
             {
-                this.IsDecimalClicked = value;
+                this._isDecimalClicked = value;
             }
         }
         // CONSTRUCTORS
         /// <summary>
-        /// This is the main constructor
+        /// This is the main constructor for the Calculator Form class
         /// </summary>
         public CalculatorForm()
         {
@@ -60,7 +84,7 @@ namespace COMP123_S2017_Lesson12B
         private void CalculatorButton_Click(object sender, EventArgs e)
         {
             Button calculatorButton = sender as Button; // downcasting
-            if((this.IsDecimalClicked)&&  (calculatorButton.Text == "."))
+            if((this.IsDecimalClicked) &&  (calculatorButton.Text == "."))
             {
                     return;
                 
@@ -69,9 +93,26 @@ namespace COMP123_S2017_Lesson12B
             {
                 this.IsDecimalClicked = true;
             }
-            ResultTextBox.Text += calculatorButton.Text;
 
-           // Debug.WriteLine("A Calculator Button was clicked");
+            if (ResultTextBox.Text == "0")
+            {
+                if (calculatorButton.Text == ".")
+                {
+                    ResultTextBox.Text += calculatorButton.Text;
+                }
+                else
+                {
+                    ResultTextBox.Text = calculatorButton.Text;
+                }
+            }
+            else
+            {
+                ResultTextBox.Text += calculatorButton.Text;
+            }
+
+
+
+            // Debug.WriteLine("A Calculator Button was clicked");
         }
         /// <summary>
         /// This is a shared event handler for the FormClosing event
@@ -83,7 +124,7 @@ namespace COMP123_S2017_Lesson12B
             Button operatorButton = sender as Button;// downcasting
             switch (operatorButton.Text)
             {
-                case "C":
+                case "c":
                     this._clear();
                     break;
             }
@@ -93,7 +134,11 @@ namespace COMP123_S2017_Lesson12B
         /// </summary>
         private void _clear()
         {
-            throw new NotImplementedException();
+            this.IsDecimalClicked = false;
+            ResultTextBox.Text = "0";
+
+            this.OperandList = new List<double>();
+
         }
 
         /// <summary>
@@ -103,7 +148,7 @@ namespace COMP123_S2017_Lesson12B
         /// <param name="e"></param>
         private void CalculatorForm_Load(object sender, EventArgs e)
         {
-            this.IsDecimalClicked = false;
+            this._clear();
         }
     }
 }
