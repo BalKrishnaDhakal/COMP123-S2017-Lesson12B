@@ -14,8 +14,8 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 3, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.8- Fixed Bugs in CalculatorButton Click method
- */ 
+ * Version: 0.7- Added Multiplication and division functinality in OperatorButton_Clic method
+ */
 namespace COMP123_S2017_Lesson12B
 {
     public partial class CalculatorForm : Form
@@ -205,6 +205,12 @@ namespace COMP123_S2017_Lesson12B
                         break;
                     case "-":
                         this.Result = this.OperandList[0] - this.OperandList[1];
+                        break;
+                    case "x":
+                        this.Result = this.OperandList[0] * this.OperandList[1];
+                        break;
+                    case "÷":
+                        this.Result = this.OperandList[0] / this.OperandList[1];
                         break;
                 }
                 this.OperandList.Clear();
