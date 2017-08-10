@@ -14,19 +14,19 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 3, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.6-Private method  _showResult is added
+ * Version: 0.7-Refactored the _calculate method
  */ 
 namespace COMP123_S2017_Lesson12B
 {
     public partial class CalculatorForm : Form
     {
-        // PRIVATE INSTANCE VARIABLES
+        // PRIVATE INSTANCE VARIABLES ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         private bool _isDecimalClicked;
         private string _currentOperator;
         private List<double> _operandList;
         private double _result;
         private bool _isOperandTwo;
-        // PUBLIC PROPERTIES
+        // PUBLIC PROPERTIES++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
        
        
         public bool IsDecimalClicked
@@ -84,7 +84,7 @@ namespace COMP123_S2017_Lesson12B
                 this._isOperandTwo = value;
             }
         }
-        // CONSTRUCTORS
+        // CONSTRUCTORS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         /// <summary>
         /// This is the main constructor for the Calculator Form class
         /// </summary>
@@ -93,7 +93,7 @@ namespace COMP123_S2017_Lesson12B
             InitializeComponent();
         }
         /// <summary>
-        /// This is an event handler for the form closing
+        /// This is an event handler for the form closing ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -102,7 +102,7 @@ namespace COMP123_S2017_Lesson12B
             Application.Exit();
         }
         /// <summary>
-        /// This is the shared event handler for the calculator Buttons
+        /// This is the shared event handler for the calculator Buttons ++++++++++++++++++++++++++++++++++++++++++++++++++
         /// Not including the operator Buttons
         /// </summary>
         /// <param name="sender"></param>
@@ -152,7 +152,7 @@ namespace COMP123_S2017_Lesson12B
             // Debug.WriteLine("A Calculator Button was clicked");
         }
         /// <summary>
-        /// This is a shared event handler for the FormClosing event
+        /// This is a shared event handler for the FormClosing event +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -173,32 +173,58 @@ namespace COMP123_S2017_Lesson12B
                 case "±":
                     break;
                 default:
-                    this._calculate(ResultTextBox.Text,operatorButton.Text);
+                    this._calculate(operand, operatorButton.Text);
                     break;
-
-
 
             }
         }
         private void _showResult( double operand)
         {
-
+            this._calculate(operand, this.CurrentOperator);
+            ResultTextBox.Text = this.Result.ToString();
         }
         /// <summary>
-        /// This is the private clear method. It resets / Clear the calculator
+        /// This is the private clear method.++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        /// It resets / Clear the calculator
         /// </summary>
         private void _clear()
         {
             this.IsDecimalClicked = false;
             ResultTextBox.Text = "0";
+            this.CurrentOperator = "c";
 
             this.OperandList = new List<double>();
+            this.IsOperandTwo = false;
+            this.Result = 0;
 
         }
-        private void _calculate(string operandString, string operatorString)
+        /// <summary>
+        /// This method calculates the result of all operands in the OperandList+++++++++++++++++++++++++++++++++++++++++++
+        /// </summary>
+        /// <param name="operandString"></param>
+        /// <param name="operatorString"></param>
+        private void _calculate(double operand, string operatorString)
         {
-            double operand = this._convertOperand(operandString);
+            OperandList.Add(operand);
+            if(OperandList.Count > 1)
+                switch (operatorString)
+                {
+                    case "+":
+                        this.Result = this.OperandList[0] + this.OperandList[1];
+                        break;
+                    case "-":
+                        this.Result = this.OperandList[0] - this.OperandList[1];
+                        break;
+                }
+            this.OperandList.Clear();
+            this.OperandList.Add(this.Result);
+            this.IsOperandTwo = false;
         }
+        /// <summary>
+        /// This method converts from the string the result textBox to a number +++++++++++++++++++++++++++++++++++++++++++++
+        /// </summary>
+        /// <param name="operandString"></param>
+        /// <returns></returns>
         private double _convertOperand(string operandString)
         {
             try
@@ -208,7 +234,7 @@ namespace COMP123_S2017_Lesson12B
             catch (Exception exception)
             {
                 Debug.WriteLine("An Error Occured");
-                Debug.WriteLine(Exception.Message)
+                Debug.WriteLine(exception.Message);
             }
             return 0;
         }
