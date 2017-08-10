@@ -299,7 +299,7 @@
             this.ResultTextBox.BackColor = System.Drawing.Color.White;
             this.ResultTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ResultTextBox.Enabled = false;
-            this.ResultTextBox.Location = new System.Drawing.Point(4, 58);
+            this.ResultTextBox.Location = new System.Drawing.Point(10, 61);
             this.ResultTextBox.Multiline = true;
             this.ResultTextBox.Name = "ResultTextBox";
             this.ResultTextBox.ReadOnly = true;

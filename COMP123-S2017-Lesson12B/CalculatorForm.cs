@@ -14,7 +14,7 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 3, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.5-Added the Form "Load" event handler 
+ * Version: 0.- Added the Private _clear method
  */ 
 namespace COMP123_S2017_Lesson12B
 {
@@ -23,15 +23,15 @@ namespace COMP123_S2017_Lesson12B
         // PRIVATE INSTANCE VARIABLES
         private bool _isDecimalClicked;
         // PUBLIC PROPERTIES
-        public bool isDecimalClicked
+        public bool IsDecimalClicked
         {
             get
             {
-                return this.isDecimalClicked;
+                return this.IsDecimalClicked;
             }
             set
             {
-                this.isDecimalClicked = value;
+                this.IsDecimalClicked = value;
             }
         }
         // CONSTRUCTORS
@@ -60,10 +60,14 @@ namespace COMP123_S2017_Lesson12B
         private void CalculatorButton_Click(object sender, EventArgs e)
         {
             Button calculatorButton = sender as Button; // downcasting
-            if ((calculatorButton.Text == ".") && (this.isDecimalClicked))
+            if((this.IsDecimalClicked)&&  (calculatorButton.Text == "."))
             {
                     return;
                 
+            }
+            if(calculatorButton.Text == ".")
+            {
+                this.IsDecimalClicked = true;
             }
             ResultTextBox.Text += calculatorButton.Text;
 
@@ -76,8 +80,22 @@ namespace COMP123_S2017_Lesson12B
         /// <param name="e"></param>
         private void OperatorButton_Click(object sender, EventArgs e)
         {
-            Button operatorButton = sender as Button;// 
+            Button operatorButton = sender as Button;// downcasting
+            switch (operatorButton.Text)
+            {
+                case "C":
+                    this._clear();
+                    break;
+            }
         }
+        /// <summary>
+        /// This is the private clear method. It resets / Clear the calculator
+        /// </summary>
+        private void _clear()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// This is the event handler for the "Load" event
         /// </summary>
@@ -85,7 +103,7 @@ namespace COMP123_S2017_Lesson12B
         /// <param name="e"></param>
         private void CalculatorForm_Load(object sender, EventArgs e)
         {
-            this.isDecimalClicked = false;
+            this.IsDecimalClicked = false;
         }
     }
 }
