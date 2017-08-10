@@ -11,7 +11,7 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 3, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.3- Refactor the SplashForm Time control
+ * Version: 0.4- Created a public property as an Alias to Program.Calculatorform
  */ 
 namespace COMP123_S2017_Lesson12B
 {
