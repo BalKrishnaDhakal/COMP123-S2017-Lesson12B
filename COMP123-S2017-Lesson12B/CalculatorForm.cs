@@ -14,7 +14,7 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 3, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.7-Refactored the _calculate method
+ * Version: 0.8- Fixed Bugs in CalculatorButton Click method
  */ 
 namespace COMP123_S2017_Lesson12B
 {
@@ -139,8 +139,6 @@ namespace COMP123_S2017_Lesson12B
                     this._isOperandTwo = true;
                 }
 
-
-
                 else
                 {
                     ResultTextBox.Text += calculatorButton.Text;
@@ -167,6 +165,7 @@ namespace COMP123_S2017_Lesson12B
                     this._clear();
                     break;
                 case "=":
+                    this._showResult(operand);
                     break;
                 case "⌫":
                     break;
@@ -178,26 +177,17 @@ namespace COMP123_S2017_Lesson12B
 
             }
         }
+        /// <summary>
+        /// This method shows the Result of the last operations in the Result TextBox ++++++++++++++++++++++++++++++++++++++++++++++++++++
+        /// </summary>
+        /// <param name="operand"></param>
         private void _showResult( double operand)
         {
             this._calculate(operand, this.CurrentOperator);
             ResultTextBox.Text = this.Result.ToString();
         }
-        /// <summary>
-        /// This is the private clear method.++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        /// It resets / Clear the calculator
-        /// </summary>
-        private void _clear()
-        {
-            this.IsDecimalClicked = false;
-            ResultTextBox.Text = "0";
-            this.CurrentOperator = "c";
-
-            this.OperandList = new List<double>();
-            this.IsOperandTwo = false;
-            this.Result = 0;
-
-        }
+        
+       
         /// <summary>
         /// This method calculates the result of all operands in the OperandList+++++++++++++++++++++++++++++++++++++++++++
         /// </summary>
@@ -206,7 +196,8 @@ namespace COMP123_S2017_Lesson12B
         private void _calculate(double operand, string operatorString)
         {
             OperandList.Add(operand);
-            if(OperandList.Count > 1)
+            if (OperandList.Count > 1)
+            {
                 switch (operatorString)
                 {
                     case "+":
@@ -216,10 +207,12 @@ namespace COMP123_S2017_Lesson12B
                         this.Result = this.OperandList[0] - this.OperandList[1];
                         break;
                 }
-            this.OperandList.Clear();
-            this.OperandList.Add(this.Result);
-            this.IsOperandTwo = false;
-        }
+                this.OperandList.Clear();
+                this.OperandList.Add(this.Result);
+                this.IsOperandTwo = false;
+              }
+            this.CurrentOperator = operatorString;
+           }
         /// <summary>
         /// This method converts from the string the result textBox to a number +++++++++++++++++++++++++++++++++++++++++++++
         /// </summary>
@@ -239,7 +232,24 @@ namespace COMP123_S2017_Lesson12B
             return 0;
         }
         /// <summary>
-        /// This is the event handler for the "Load" event
+        ///This is the private clear method.++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        /// It resets / Clear the calculator
+        /// </summary>
+        
+      
+        private void _clear()
+        {
+            this.IsDecimalClicked = false;
+            ResultTextBox.Text = "0";
+            this.CurrentOperator = "c";
+
+            this.OperandList = new List<double>();
+            this.IsOperandTwo = false;
+            this.Result = 0;
+
+        }
+        /// <summary>
+        ///  This is the event handler for the "Load" event +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
