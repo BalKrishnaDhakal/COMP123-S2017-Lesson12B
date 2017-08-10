@@ -11,12 +11,27 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 3, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.2- Created SplashForm Timer_Tick event handler
+ * Version: 0.3- Refactor the SplashForm Time control
  */ 
 namespace COMP123_S2017_Lesson12B
 {
     public partial class SplashForm : Form
     {
+        // PRIVATE INSTANCE VARIABLES+++++++++++++++++++++++++++++++++++++++++
+        private CalculatorForm _calculatorForm;
+
+        // PUBLIC PROPERTIES++++++++++++++++++++++++++++++++++++++++++++++++++
+        public CalculatorForm CalculatorForm
+        {
+            get
+            {
+                return Program.calculatorForm;
+            }
+        }
+        // CONSTRUCTORS ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        /// <summary>
+        /// This is the main constructors for the SplashForm
+        /// </summary>
         public SplashForm()
         {
             InitializeComponent();
@@ -28,8 +43,8 @@ namespace COMP123_S2017_Lesson12B
         /// <param name="e"></param>
         private void SplashFormTimer_Tick(object sender, EventArgs e)
         {
-            CalculatorForm calculatorForm = new CalculatorForm();
-            calculatorForm.Show();
+           
+           this. CalculatorForm.Show();
             this.Hide();
 
             SplashFormTimer.Enabled = false; // turn timer off

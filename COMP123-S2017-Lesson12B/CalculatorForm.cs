@@ -29,7 +29,7 @@ namespace COMP123_S2017_Lesson12B
         /// <param name="e"></param>
         private void CalculatorForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            Application.Exit();
         }
     }
 }
