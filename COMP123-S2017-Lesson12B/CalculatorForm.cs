@@ -14,7 +14,7 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 3, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.7- Refactored the CalculatorButton_Click event handler
+ * Version: 0.6-Private method  _showResult is added
  */ 
 namespace COMP123_S2017_Lesson12B
 {
@@ -24,7 +24,22 @@ namespace COMP123_S2017_Lesson12B
         private bool _isDecimalClicked;
         private string _currentOperator;
         private List<double> _operandList;
+        private double _result;
+        private bool _isOperandTwo;
         // PUBLIC PROPERTIES
+       
+       
+        public bool IsDecimalClicked
+        {
+            get
+            {
+                return this._isDecimalClicked;
+            }
+            set
+            {
+                this._isDecimalClicked = value;
+            }
+        }
         public List<double> OperandList
         {
             get
@@ -47,15 +62,26 @@ namespace COMP123_S2017_Lesson12B
                 this._currentOperator = value;
             }
         }
-        public bool IsDecimalClicked
+        public double Result
         {
             get
             {
-                return this._isDecimalClicked;
+                return this._result;
             }
             set
             {
-                this._isDecimalClicked = value;
+                this._result = value;
+            }
+        }
+        public bool IsOperandTwo
+        {
+            get
+            {
+                return this._isOperandTwo;
+            }
+            set
+            {
+                this._isOperandTwo = value;
             }
         }
         // CONSTRUCTORS
@@ -107,7 +133,18 @@ namespace COMP123_S2017_Lesson12B
             }
             else
             {
-                ResultTextBox.Text += calculatorButton.Text;
+                if ((OperandList.Count > 0) && (this._isOperandTwo == false))
+                {
+                    ResultTextBox.Text = calculatorButton.Text;
+                    this._isOperandTwo = true;
+                }
+
+
+
+                else
+                {
+                    ResultTextBox.Text += calculatorButton.Text;
+                }
             }
 
 
@@ -122,12 +159,30 @@ namespace COMP123_S2017_Lesson12B
         private void OperatorButton_Click(object sender, EventArgs e)
         {
             Button operatorButton = sender as Button;// downcasting
+            double operand = this._convertOperand(ResultTextBox.Text); // convert to number
+
             switch (operatorButton.Text)
             {
                 case "c":
                     this._clear();
                     break;
+                case "=":
+                    break;
+                case "⌫":
+                    break;
+                case "±":
+                    break;
+                default:
+                    this._calculate(ResultTextBox.Text,operatorButton.Text);
+                    break;
+
+
+
             }
+        }
+        private void _showResult( double operand)
+        {
+
         }
         /// <summary>
         /// This is the private clear method. It resets / Clear the calculator
@@ -140,7 +195,23 @@ namespace COMP123_S2017_Lesson12B
             this.OperandList = new List<double>();
 
         }
-
+        private void _calculate(string operandString, string operatorString)
+        {
+            double operand = this._convertOperand(operandString);
+        }
+        private double _convertOperand(string operandString)
+        {
+            try
+            {
+                return Convert.ToDouble(operandString);
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine("An Error Occured");
+                Debug.WriteLine(Exception.Message)
+            }
+            return 0;
+        }
         /// <summary>
         /// This is the event handler for the "Load" event
         /// </summary>
@@ -150,5 +221,6 @@ namespace COMP123_S2017_Lesson12B
         {
             this._clear();
         }
+
     }
 }
