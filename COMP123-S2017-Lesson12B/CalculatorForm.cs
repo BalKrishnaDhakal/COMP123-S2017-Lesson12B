@@ -14,12 +14,30 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 3, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.4-Created a shared event handler for the operator Buttons
+ * Version: 0.5-Added the Form "Load" event handler 
  */ 
 namespace COMP123_S2017_Lesson12B
 {
     public partial class CalculatorForm : Form
     {
+        // PRIVATE INSTANCE VARIABLES
+        private bool _isDecimalClicked;
+        // PUBLIC PROPERTIES
+        public bool isDecimalClicked
+        {
+            get
+            {
+                return this.isDecimalClicked;
+            }
+            set
+            {
+                this.isDecimalClicked = value;
+            }
+        }
+        // CONSTRUCTORS
+        /// <summary>
+        /// This is the main constructor
+        /// </summary>
         public CalculatorForm()
         {
             InitializeComponent();
@@ -42,6 +60,11 @@ namespace COMP123_S2017_Lesson12B
         private void CalculatorButton_Click(object sender, EventArgs e)
         {
             Button calculatorButton = sender as Button; // downcasting
+            if ((calculatorButton.Text == ".") && (this.isDecimalClicked))
+            {
+                    return;
+                
+            }
             ResultTextBox.Text += calculatorButton.Text;
 
            // Debug.WriteLine("A Calculator Button was clicked");
@@ -53,7 +76,16 @@ namespace COMP123_S2017_Lesson12B
         /// <param name="e"></param>
         private void OperatorButton_Click(object sender, EventArgs e)
         {
-            Button operatorButton = sender as Button;// downcasting
+            Button operatorButton = sender as Button;// 
+        }
+        /// <summary>
+        /// This is the event handler for the "Load" event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CalculatorForm_Load(object sender, EventArgs e)
+        {
+            this.isDecimalClicked = false;
         }
     }
 }
