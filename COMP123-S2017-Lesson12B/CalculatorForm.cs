@@ -14,7 +14,7 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 3, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.7- Added Multiplication and division functinality in OperatorButton_Clic method
+ * Version: 0- Added _removeAt method 
  */
 namespace COMP123_S2017_Lesson12B
 {
@@ -167,8 +167,12 @@ namespace COMP123_S2017_Lesson12B
                 case "=":
                     this._showResult(operand);
                     break;
+
                 case "⌫":
+                     this._removeAt();
+                   
                     break;
+
                 case "±":
                     break;
                 default:
@@ -212,10 +216,13 @@ namespace COMP123_S2017_Lesson12B
                     case "÷":
                         this.Result = this.OperandList[0] / this.OperandList[1];
                         break;
+
+
                 }
                 this.OperandList.Clear();
                 this.OperandList.Add(this.Result);
                 this.IsOperandTwo = false;
+                this.OperandList.RemoveAt(OperandList.Count - 1);
               }
             this.CurrentOperator = operatorString;
            }
@@ -237,12 +244,28 @@ namespace COMP123_S2017_Lesson12B
             }
             return 0;
         }
+      
+        /// <summary>
+        /// This Method cuts the last last digits from the ResultTectBox+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        /// </summary>
+        private void _removeAt()
+        {
+
+            if (ResultTextBox.Text.Length > 0)
+            {
+                ResultTextBox.Text = ResultTextBox.Text.Remove(ResultTextBox.Text.Length - 1, 1);
+            }
+            if (ResultTextBox.Text=="")
+            {
+                ResultTextBox.Text = "0";
+            }
+        }
         /// <summary>
         ///This is the private clear method.++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         /// It resets / Clear the calculator
         /// </summary>
-        
-      
+
+
         private void _clear()
         {
             this.IsDecimalClicked = false;
