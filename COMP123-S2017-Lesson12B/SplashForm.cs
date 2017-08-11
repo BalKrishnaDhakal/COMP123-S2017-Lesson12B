@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 /*Name: Bal Krishna Dhakal
  * StudentID: 300916314
- * Date: August 3, 2017
+ * Date: August 8, 2017
  * Desciption: Calculator Demo Project
  * Version: 0.4- Created a public property as an Alias to Program.Calculatorform
  */ 

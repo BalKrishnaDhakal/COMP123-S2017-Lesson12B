@@ -12,9 +12,9 @@ using System.Windows.Forms;
 /*
  * Name: Bal Krishna Dhakal
  * StudentID: 300916314
- * Date: August 3, 2017
+ * Date: August 11, 2017
  * Desciption: Calculator Demo Project
- * Version: 0- Added _removeAt method 
+ * Version: 0.8- Added _removeAt method 
  */
 namespace COMP123_S2017_Lesson12B
 {
@@ -145,8 +145,6 @@ namespace COMP123_S2017_Lesson12B
                 }
             }
 
-
-
             // Debug.WriteLine("A Calculator Button was clicked");
         }
         /// <summary>
@@ -178,7 +176,6 @@ namespace COMP123_S2017_Lesson12B
                 default:
                     this._calculate(operand, operatorButton.Text);
                     break;
-
             }
         }
         /// <summary>
@@ -191,7 +188,6 @@ namespace COMP123_S2017_Lesson12B
             ResultTextBox.Text = this.Result.ToString();
         }
         
-       
         /// <summary>
         /// This method calculates the result of all operands in the OperandList+++++++++++++++++++++++++++++++++++++++++++
         /// </summary>
@@ -216,7 +212,6 @@ namespace COMP123_S2017_Lesson12B
                     case "÷":
                         this.Result = this.OperandList[0] / this.OperandList[1];
                         break;
-
 
                 }
                 this.OperandList.Clear();
@@ -261,7 +256,7 @@ namespace COMP123_S2017_Lesson12B
             }
         }
         /// <summary>
-        ///This is the private clear method.++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ///This is the private clear method.++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         /// It resets / Clear the calculator
         /// </summary>
 
@@ -271,7 +266,6 @@ namespace COMP123_S2017_Lesson12B
             this.IsDecimalClicked = false;
             ResultTextBox.Text = "0";
             this.CurrentOperator = "c";
-
             this.OperandList = new List<double>();
             this.IsOperandTwo = false;
             this.Result = 0;
