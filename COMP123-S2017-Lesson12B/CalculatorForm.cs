@@ -14,7 +14,7 @@ using System.Windows.Forms;
  * StudentID: 300916314
  * Date: August 11, 2017
  * Desciption: Calculator Demo Project
- * Version: 0.8- Added _removeAt method 
+ * Version: 0.8- Finally revised and updated 
  */
 namespace COMP123_S2017_Lesson12B
 {
